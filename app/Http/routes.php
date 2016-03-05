@@ -11,7 +11,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/book/{id}', 'BookController@getShow');
 
     Route::get('/practice', function(){
-        echo config('app.url');
-        return '';
+
+        $random = new Random();
+
+        return $random->getRandomString(10);
     });
 });

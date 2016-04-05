@@ -3,6 +3,7 @@
 namespace Foobooks\Http\Controllers;
 
 use Foobooks\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class BookController extends Controller {
 
@@ -10,32 +11,31 @@ class BookController extends Controller {
     * Responds to requests to GET /books
     */
     public function getIndex() {
-        return 'Show a list of books';
+        return view('books.index');
     }
-
     /**
-     * Responds to requests to GET /books/show/{id}
-     */
-    public function getShow($id) {
-        return 'Show an individual book: '.$id;
+    * Responds to requests to GET /books/show/{id}
+    */
+    public function getShow($title = null) {
+        return view('books.show',[
+            'title' => $title,
+        ]);
     }
-
     /**
-     * Responds to requests to GET /books/create
-     */
+    * Responds to requests to GET /books/create
+    */
     public function getCreate() {
-        $view = '<form method="POST" action="/book/create">';
-        $view .= csrf_field();
-        $view .= 'Book title: <input type="text" name="title" />';
-        $view .= '<input type="submit" />';
-        $view .= '</form>';
-        return $view;
+        return view('books.create');
     }
-
     /**
-     * Responds to requests to POST /books/create
-     */
-    public function postCreate() {
-        return 'Add the book: '.$_POST['title'];
+    * Responds to requests to POST /books/create
+    */
+    public function postCreate(Request $request) {
+        $this->validate($request,[
+            'title' => 'required|min:3',
+            'author' => 'required'
+        ]);
+        return 'Add the book: '.$request->input('title');
+        #return redirect('/books');
     }
 }

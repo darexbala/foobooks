@@ -1,13 +1,14 @@
 <?php
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', 'BookController@getIndex');
 Route::get('/books', 'BookController@getIndex');
+
 Route::get('/book/create', 'BookController@getCreate');
 Route::post('/book/create', 'BookController@postCreate');
+
 Route::get('/book/show/{title?}', 'BookController@getShow');
+Route::get('/book/edit/{id?}', 'BookController@getEdit');
+Route::post('/book/edit', 'BookController@postEdit');
 
 Route::get('/practice', function() {
 
@@ -38,7 +39,7 @@ if(App::environment('local')) {
 
 
 Route::get('/debug', function() {
-    
+
     echo '<pre>';
 
     echo '<h1>Environment</h1>';

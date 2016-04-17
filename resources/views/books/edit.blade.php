@@ -1,24 +1,24 @@
 @extends('layouts.master')
 
 @section('title')
-    Add a new book
+    Edit book {{ $book->title }}
 @stop
 
 @section('content')
 
 <h1>Add a new book</h1>
 
-    <form method='POST' action='/book/create'>
+    <form method='POST' action='/book/edit'>
 
         {{ csrf_field() }}
-
+        <input type="hidden" name='id' value='{{ $book->id }}'>
         <div class='form-group'>
            <label>Title:</label>
             <input
                 type='text'
                 id='title'
                 name='title'
-                value='{{ old('title','Green Eggs and Ham') }}'
+                value='{{ $book->title }}'
             >
            <div class='error'>{{ $errors->first('title') }}</div>
         </div>
@@ -29,7 +29,7 @@
                type='text'
                id='author'
                name='author'
-               value='{{ old('author','Dr. Seuss') }}'
+               value='{{ $book->author  }}'
            >
            <div class='error'>{{ $errors->first('author') }}</div>
         </div>
@@ -40,7 +40,7 @@
                type='text'
                id='published'
                name='published'
-               value='{{ old('published','1960') }}'
+               value='{{ $book->published  }}'
            >
            <div class='error'>{{ $errors->first('Published') }}</div>
         </div>
@@ -51,7 +51,7 @@
                type='text'
                id='cover'
                name='cover'
-               value='{{ old('cover','http://prodimage.images-bn.com/pimages/9780394800165_p0_v4_s192x300.jpg') }}'
+               value='{{ $book->cover }}'
            >
            <div class='error'>{{ $errors->first('cover') }}</div>
         </div>
@@ -62,7 +62,7 @@
                type='text'
                id='purchase_link'
                name='purchase_link'
-               value='{{ old('purchase_link','http://www.barnesandnoble.com/w/green-eggs-and-ham-dr-seuss/1100170349?ean=9780394800165') }}'
+               value='{{ $book->purchase_link  }}'
            >
            <div class='error'>{{ $errors->first('purchase_link') }}</div>
         </div>
@@ -71,7 +71,7 @@
             All fields are required
         </div>
 
-        <button type="submit" class="btn btn-primary">Add book</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
 
         {{--
         <ul class=''>

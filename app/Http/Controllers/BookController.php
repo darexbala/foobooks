@@ -11,14 +11,17 @@ class BookController extends Controller {
     * Responds to requests to GET /books
     */
     public function getIndex() {
-        $books = \Foobooks\Book::orderby('id', 'desc')->get();
-
-        return view('books.index')->with('books', $books);
+        //$books = \Foobooks\Book::orderby('id', 'desc')->get();
+        $books  = \Foobooks\Book::all();
+        //$first = $books->first();
+        dump($books);
+        //return view('books.index')->with('books', $books);
     }
     /**
     * Responds to requests to GET /books/show/{id}
     */
     public function getShow($title = null) {
+
         return view('books.show',[
             'title' => $title,
         ]);
@@ -79,7 +82,7 @@ class BookController extends Controller {
         $book->purchase_link = $request->purchase_link;
 
         $book->save();
-        
+
         \Session::flash('message','Your changes were saved.');
         return redirect('/book/edit/'.$request->id);
     }

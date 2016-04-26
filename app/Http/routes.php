@@ -32,6 +32,13 @@ Route::get('/practice', function() {
 
 });
 
+# ------------------------------------
+# Practice routes
+# ------------------------------------
+for($i = 0; $i <= 100; $i++) {
+    Route::get("/practice/ex".$i, "PracticeController@getEx".$i);
+}
+
 # Restrict certain routes to only be viewable in the local environments
 if(App::environment('local')) {
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');

@@ -9,8 +9,14 @@ class Book extends Model
     protected $fillable = ['title','author','published','cover','purchase_link'];
 
     public function author() {
-        # Book belongs to Author
-        # Define an inverse one-to-many relationship.
         return $this->belongsTo('\Foobooks\Author');
+    }
+
+    public function tags() {
+        return $this->belongsToMany('\Foobooks\Tag')->withTimestamps();
+    }
+
+    public static function getAllBooksWithAuthors() {
+        return \Foobooks\Book::with('author')->orderBy('id','desc')->get();
     }
 }

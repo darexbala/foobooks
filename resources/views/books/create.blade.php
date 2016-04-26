@@ -25,12 +25,11 @@
 
         <div class='form-group'>
            <label>Author:</label>
-           <input
-               type='text'
-               id='author'
-               name='author'
-               value='{{ old('author','Dr. Seuss') }}'
-           >
+           <select name='author_id' id='author_id'>
+               @foreach($authors_for_dropdown as $author_id => $author_name)
+                    <option value='{{$author_id}}'>{{$author_name}}</option>
+                @endforeach
+           </select>
            <div class='error'>{{ $errors->first('author') }}</div>
         </div>
 
